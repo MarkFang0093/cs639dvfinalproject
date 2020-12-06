@@ -6,7 +6,7 @@ function map3d(year, typeData) {
   require(["./rolling-globe.min.js"], function (rollingGlobe) {
     //getdata
     d3.csv("countries.csv").then(async (data) => {
-      typeData = getTypeData(year, typeData); //typedata
+      typeData = getTypeData(year, typeData); // tidy the data by year
       console.log(typeData);
       const domain = d3.extent(data, (d) => removeComma(d[year]));
       const color = d3
@@ -14,7 +14,7 @@ function map3d(year, typeData) {
         .exponent(1 / 4);
       d3.select("#globe").selectAll("*").remove();
       var g = new rollingGlobe.Globe("#globe");
-      // annual data
+      // import yearly immigrant stats
       g.features.forEach((d, i) => {
         let value = data.find((v) => v.country === d.properties.name);
         let colorValue = value ? removeComma(value[year]) : 0;
@@ -27,7 +27,8 @@ function map3d(year, typeData) {
         g.borderColors =
           d.properties.name === "United States" ? "#153e90" : "#eee";
       });
-      //click
+      
+      // click to view content
 
       g.clickCountry = function (i) {
         g.rotateTransitionToICountry(i, function () {
@@ -36,7 +37,7 @@ function map3d(year, typeData) {
         });
       };
 
-      // hover part
+      // box for hover the mouse
 
       d3.select(".countryTooltip").style("display", "hidden");
       g.draw();
@@ -49,7 +50,7 @@ function map3d(year, typeData) {
         .attr("class", "d3-tip")
         .html((d) => {
           if (d.target.__data__.properties.name === "United States") {
-            return `<li class="red">Year:${year}</li><li class="red">Immediate relatives:${typeData.get(
+            return `<li class="red">Year:${year}</li><li class="blue">Immediate relatives:${typeData.get(
               "Immediate relatives"
             )}</li>
             <li class="yellow">Family-based:${typeData.get("Family-based")}</li>
@@ -64,12 +65,13 @@ function map3d(year, typeData) {
           } else {
             return `<li>Year:${year}</li>
         <li>${d.target.__data__.properties.name}</li>
-              <li>burned area:${d.target.__data__.properties.value}</li>           
+              <li>Immigrant population:${d.target.__data__.properties.value}</li>           
               `;
           }
         });
       svg.call(tip);
-      // US core
+
+      // US
       svg
         .selectAll(".country")
         .style("stroke", (d) =>
@@ -106,7 +108,7 @@ function map3d(year, typeData) {
 async function mapState(year, typeData) {
   const data = await d3.csv("states.csv");
   const json = await d3.json("us.json");
-  typeData = getTypeData(year, typeData); //by year type data
+  typeData = getTypeData(year, typeData); //根据年份整理typedata
 
   json.features.forEach((d) => {
     let value = data.find((v) => v.state === d.properties.name);
@@ -117,8 +119,8 @@ async function mapState(year, typeData) {
   const div = d3.select("#state");
   div.selectAll("*").remove();
   const svg = div.append("svg");
-  const width = window.innerWidth*0.8;
-  const height =window.innerHeight*0.9;
+  const width = window.innerWidth*0.6;
+  const height =window.innerHeight-40;
   svg.attr("width", width);
   svg.attr("height", height);
 
@@ -152,7 +154,7 @@ async function mapState(year, typeData) {
 
   const legendG = svg
     .append("g")
-    .attr("transform", `translate(20,${window.innerHeight-300}) rotate(270)`);
+    .attr("transform", `translate(0,${window.innerHeight-300}) rotate(270)`);
   addLegend(color, legendG);
 }
 
@@ -189,7 +191,7 @@ function addLegend(color, legendG) {
       title: "Immigrant",
     })
   );
-  legendG.append('rect').attr('class','legend').attr('width',300).attr('height',120).attr('x',-70).attr('fill','none')
+  legendG.append('rect').attr('class','legend').attr('width',300).attr('height',100).attr('x',-70).attr('fill','none')
 
   legendG.selectAll("text").attr("transform", "translate(10,20) rotate(90)");
 }
