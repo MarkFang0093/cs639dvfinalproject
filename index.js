@@ -39,6 +39,7 @@ function map3d(year, typeData) {
 
       // box for hover the mouse
 
+      //test 
       d3.select(".countryTooltip").style("display", "hidden");
       g.draw();
       //TIP
