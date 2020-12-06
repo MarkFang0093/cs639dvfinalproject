@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="d3.min.js"></script>
+    <script src="d3-tip-v6.js"></script>
+    <link rel="stylesheet" href="d3-tip.css">
+
+    <!-- bootstrape -->
+    <!-- newest bootstrap -->
+    <script src="jquery.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- optional bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- new core bootstrap js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/@observablehq/stdlib@3"></script>
+    <style>
+        .red {
+            color: red;
+            font-size: large;
+            font-weight: 500;
+        }
+
+        .blue {
+            color: blue;
+            font-size: large;
+            font-weight: 500;
+        }
+
+        .brown {
+            color: brown;
+            font-size: large;
+            font-weight: 500;
+        }
+
+        .green {
+            color: green;
+            font-size: large;
+            font-weight: 500;
+        }
+
+        .yellow {
+            color: yellow;
+            font-size: large;
+            font-weight: 500;
+        }
+
+        .legend {
+            stroke: gray;
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        An analysis of the immigration population of the United States from 2001 to 2019
+    </h1>
+    <section style="width: 300px; margin: 0 auto; position: sticky;top: 90vh;left: 90vw; ; ">
+
+        <div>
+            <label for="customRange1">Select a Year</label>
+            <span id="yearValue">2001</span>
+
+        </div>
+        <div style="display: flex;">
+            <span>2001</span>
+            <input type="range" class="custom-range" id="customRange1">
+            <span>2019</span>
+        </div>
+    </section>
+    <section style="display: flex;">
+        <div id="globe" style="width: calc(100vw - 60px);height: calc(100vh - 100px);"> </div>
+
+
+    </section>
+
+    <section>
+        <div>
+            <h3>Immigrant population by State</h3>
+            <div id="state">
+
+            </div>
+        </div>
+
+    </section>
+
+    <script src="./require.js"></script>
+    <script src="index.js" type="module"></script>
+</body>
+
+</html>
